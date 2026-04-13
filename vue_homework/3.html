@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车示例</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* 按钮通用样式 */
+        button {
+            cursor: pointer;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 2px;
+            color: white;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        /* 题目要求的颜色样式 */
+        .btn-add {
+            background-color: #007bff; /* 蓝色 */
+        }
+
+        .btn-sub {
+            background-color: #dc3545; /* 红色 */
+        }
+
+        .btn-del {
+            background-color: #6c757d; /* 灰色删除按钮 */
+        }
+
+        .total-section {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>购物车</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>单价 (元)</th>
+                <th>购买数量</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="cart-body">
+            <!-- JS 将在这里动态生成内容 -->
+        </tbody>
+    </table>
+
+    <div class="total-section">
+        总价: ¥<span id="total-price">0</span>
+    </div>
+
+    <script>
+        // 1. 初始化数据 (对应图 3-33 中的数据)
+        let cartData = [
+            { id: 1, name: 'Apple', price: 10, count: 1 },
+            { id: 2, name: 'Orange', price: 5, count: 1 },
+            { id: 3, name: 'Banana', price: 20, count: 1 }
+        ];
+
+        // 2. 渲染函数：将数据渲染到页面
+        function renderCart() {
+            const tbody = document.getElementById('cart-body');
+            tbody.innerHTML = ''; // 清空现有内容，重新渲染
+
+            cartData.forEach(item => {
+                // 创建行
+                const tr = document.createElement('tr');
+
+                tr.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>¥${item.price}</td>
+                    <td>
+                        <!-- 绑定 data-id 方便后续获取是哪个商品 -->
+                        <button class="btn-sub" onclick="updateCount(${item.id}, -1)">-</button>
+                        <span style="margin: 0 10px;">${item.count}</span>
+                        <button class="btn-add" onclick="updateCount(${item.id}, 1)">+</button>
+                    </td>
+                    <td>
+                        <button class="btn-del" onclick="deleteItem(${item.id})">删除</button>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+
+            updateTotal(); // 每次渲染后更新总价
+        }
+
+        // 3. 更新数量逻辑
+        function updateCount(id, change) {
+            const product = cartData.find(p => p.id === id);
+            if (product) {
+                // 计算新数量
+                const newCount = product.count + change;
+
+                // 限制最小数量为 1
+                if (newCount >= 1) {
+                    product.count = newCount;
+                    renderCart(); // 重新渲染界面
+                }
+            }
+        }
+
+        // 4. 删除商品逻辑
+        function deleteItem(id) {
+            // 过滤掉被删除的商品，保留其他的
+            cartData = cartData.filter(p => p.id !== id);
+            renderCart(); // 重新渲染
+        }
+
+        // 5. 计算总价
+        function updateTotal() {
+            const totalEl = document.getElementById('total-price');
+            const total = cartData.reduce((sum, item) => {
+                return sum + (item.price * item.count);
+            }, 0);
+            totalEl.innerText = total;
+        }
+
+        // 初始化页面
+        renderCart();
+    </script>
+
+</body>
+</html>
