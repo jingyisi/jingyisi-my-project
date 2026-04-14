@@ -24,4 +24,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub 自动提供的 Token，无需手动配置
           branch: 'main'                             # 如果你的主分支是 master，请改为 master
-          force: true                                # 强制推送，确保两边完全一致
+          force: true                                 # 强制推送，确保两边完全一致
