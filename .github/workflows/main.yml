@@ -5,7 +5,7 @@ on:
     - cron: '0 6 * * *' # 每天早上6点自动同步
   workflow_dispatch:     # 也可以手动触发
 
-jobs:
+jobs: 
   sync:
     runs-on: ubuntu-latest
 
