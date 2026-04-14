@@ -1,29 +1,27 @@
-name: Sync from Gitee
+name: Gitee ↔ GitHub 双向同步
 
 on:
-  schedule:
-    - cron: '0 6 * * *' # 每天早上6点自动同步
-  workflow_dispatch:     # 也可以手动触发
+  push:
+  workflow_dispatch:
 
-jobs: 
+jobs:
   sync:
     runs-on: ubuntu-latest
- 
     steps:
-      # 第一步：从 Gitee 拉取代码
-      # 注意：这里升级到了 @v5，适配最新的 GitHub 环境
-      - name: Checkout code from Gitee
-        uses: actions/checkout@v5
+      - name: 检出代码
+        uses: actions/checkout@v4
         with:
-          repository: 'jingyisi/jingyisi-my-project' # 你的 Gitee 用户名/仓库名
-          token: ${{ secrets.first_project }}
-          fetch-depth: 0 # 获取所有历史记录
+          fetch-depth: 0
 
-      # 第二步：推送到 GitHub
-      # 我们不再使用老旧的第三方插件，而是直接用 Git 命令推送，最稳定！
-      - name: Push to GitHub
+      - name: 添加 Gitee 远程
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git push origin HEAD:main --force
+          git remote add gitee https://jingyisi:${{ secrets.GITEE_TOKEN }}@gitee.com/jingyisi/jingyisi-my-project.git
+
+      - name: 拉取 Gitee 最新
+        run: git pull gitee main --rebase --allow-unrelated-histories || true
+
+      - name: 推送到 Gitee
+        run: git push gitee --all --force-with-lease
+      
+      - name: 推送到 GitHub
+        run: git push origin --all --force-with-lease
