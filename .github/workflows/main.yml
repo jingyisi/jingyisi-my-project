@@ -9,31 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false  # 关闭默认的GITHUB_TOKEN认证
 
-      - name: 配置Git用户信息
+      - name: 添加 Gitee 远程
         run: |
-          git config --global user.name "jingyisi"
-          git config --global user.email "你的邮箱@example.com"
+          git remote add gitee https://jingyisi:${{ secrets.GITEE_TOKEN }}@gitee.com/jingyisi/jingyisi-my-project.git
 
-      - name: 添加Gitee远程仓库
-        run: |
-          git remote add gitee https://gitee.com/jingyisi/jingyisi-my-project.git
-          git config credential.helper store
-          echo "https://jingyisi:${{ secrets.GITEE_TOKEN }}@gitee.com" > ~/.git-credentials
+      - name: 拉取 Gitee 最新
+        run: git pull gitee main --rebase --allow-unrelated-histories || true
 
-      - name: 添加GitHub远程仓库（用GITHUB_TOKEN认证）
-        run: |
-          git remote add github https://jingyisi:${{ secrets.GITHUB_TOKEN }}@github.com/jingyisi/jingyisi_gitee_and_github.git
-
-      - name: 拉取Gitee最新代码
-        run: git pull gitee --rebase --allow-unrelated-histories || true
-
-      - name: 推送到Gitee
+      - name: 推送到 Gitee
         run: git push gitee --all --force-with-lease
       
-      - name: 推送到GitHub
-        run: git push github --all --force-with-lease
+      - name: 推送到 GitHub
+        run: git push origin --all --force-with-lease
