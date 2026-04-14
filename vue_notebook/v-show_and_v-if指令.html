@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title>v-show_and_v-if指令</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+    <div id="app">
+        //  v-if和v-show有隐藏和显示元素的作用
+        <div v-if="isMale">男生v-if</div>         //  v-if:直接将元素从html骨架中扣掉,直接抹除
+        <div v-show="isMale">男生v-show</div>     //v-show:元素被隐藏,v-show 的那个 div 依然存在，但带有 style="display: none;"。                                
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                isMale:false   //为false时隐藏，true时显示
+            }
+        })
+    </script>
+    </body>
+</html>

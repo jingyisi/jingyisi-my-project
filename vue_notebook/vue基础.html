@@ -1,0 +1,25 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>vue_basic</title>    
+		<script src="vue.js"></script><!--引入js文件-->
+	</head>
+	<body>              <!--<div>标签是一个块容器标记，对页面进行分块-->
+	<div>{{name}}</div> <!--代码里有多个div时，只会显示一个-->
+	<div id="a">        <!--利用id选择器，id选择器的值是唯一的-->
+	{{name}}
+	</div>
+	<!--所有js代码都写在script-->
+	<script type="text/javascript">
+		new Vue( //新建一个对象，在括号中引入一个花括号用来声名一个类   
+			{
+				el:"#a",//element:绑定元素
+				data:{//数据：声名变量，所使用的所有变量都要在data里声名
+					name:"alice"//调用变量：变量名称
+				}
+			}
+		)
+	</script>
+	</body>
+</html>

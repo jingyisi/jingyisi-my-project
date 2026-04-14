@@ -1,0 +1,106 @@
+  <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title></title>
+        <script src="vue.js"></script>
+        <style type="text/css">
+            #app{
+                width:78%;
+                height:300px;
+                margin:0 auto;
+                border:solid 1px gray;
+                padding:1% 1% 1% 5%;
+            }
+            #app h2{
+                font-size:16px;
+            }
+            .course{
+                width:46%;
+                margin-right:1%;
+                float:left;
+                margin-bottom:1%;
+                border-right:dashed 1px gray;
+            }
+            .inner{
+                width:200px;
+                padding-left:32%;
+                /*border:solid 1px red;*/
+                padding-top:10px;
+                padding-bottom:10px;
+            }
+            .des{
+                width:200px;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+            }
+            .index-board-Vue{
+                background:url()no-repeat;
+            }
+            .index-board-js{
+                background:url()no-repeat;
+            }
+            .index-board-html{
+                background:url()no-repeat;
+                background-size:100px 100px;    
+            }
+            .index-board-java{
+                background:url()no-repeat;
+            }
+            .line-last{
+                border:none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="course" v-for="(item,index) in boardlist" :class="[{'line-last':index %2!==0},'index-board-'+item.id]">
+                <div class="inner">
+                <h2>{{item.title}}</h2>
+                <p class="des">{{item.description}}</p>
+                <div class="btn">
+                    <button>立即购</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+        var vm=new Vue({
+            el:"#app",
+            data:{
+                boardlist:[{
+                    title:'Vue课程',
+                    description:'是一套构建用户界面的渐进式框架',
+                    id:'Vue',
+                    toKey:'analysis',
+                    saleout:false
+                },
+                {
+                    title:'javascript 课程',
+                    description:'是一种直译式语言,是一种动态类,弱类型,基于原型的语言,内置支持语言类型。',
+                    id:'js',
+                    toKey:'count',
+                    saleout:false
+                },
+                {
+                    title:'HTML课程',
+                    description:'超文本标记语言,是一种用于创建网页的标准标记语言',
+                    id:'html',
+                    toKey:'forecasy',
+                    saleout:true
+                },
+                {
+                    title:'java 课程',
+                    description:'是一门面向对象的编程语言',
+                    id:'java',
+                    toKey:'publish',
+                    saleout:false
+                },
+            ],
+        }
+    })
+    </script>
+    </body>
+</html>

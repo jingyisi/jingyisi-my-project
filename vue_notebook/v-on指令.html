@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charst="UTF-8">
+        <title>v-on指令</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        
+        <div id="app">
+            <p>{{msg}}</p>
+            <button v-on:click="msg='今天天气真好'">单击改变内容</button>  // v-on可被用@代替
+            // v-on:作用就是给元素绑定“行为”。比如当用户点击按钮、按下键盘、移动鼠标时，让 Vue 执行某个特定的函数
+            <button v-on:click="counter++">单击自增+1</button>单击次数{{counter}}
+            <button v-on:click="changeCounter()">单击改变</button>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el:'#app',
+                data:{
+                    msg:"今天天气好热",
+                    counter:0
+                },
+                // data 是用来存“静态数据”的仓库，那么 methods 就是用来存“动态行为”的工厂
+                methods:{
+                    changeCounter(){
+                        //this指向当前Vue实例,及vm
+                        this.msg='测试改变'
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

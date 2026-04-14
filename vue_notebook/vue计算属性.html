@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title>vue_computer_property</title>
+        <script src  = "vue.js"></script>
+	    <style type = "text/css">
+		    table.gridtable{
+		        font-family:verdana,arial,sans-serif;
+				font-size:11px;
+				color:#333333;
+				border-width: 1px;
+				border-color:#666666;
+				border-collapse:collapse;
+			}
+			table.gridtable th{
+				border-width:1px;
+				padding:8px;
+				border-style:solid;
+				border-color:#666666;
+				background-color:#dedede;
+			}
+			table.gridtable tr{
+				border-width:1px;
+				padding:8px;
+				border-style:solid;
+				border-color:#666666;
+				background-color:#ffffff;
+			}
+	</style>
+    </head>
+    <body>
+        <div id = "app">
+		    <table class= "gridtable">
+			<tr>
+				<th>学科</th>
+				<th>分数</th>
+			</tr>
+			<tr>
+				<td>语文</td>
+		        <td><input type = "text" name = "" id = "" v-model.number = "chinese"/></td>
+	        </tr>
+			<tr>	 
+			<tr>
+				<td>数学</td>
+		        <td><input type = "text" name = "" id = "" v-model.number = "math"/></td>
+	        </tr>
+			<tr>
+				<td>英语</td>
+		        <td><input type = "text" name = "" id = "" v-model.number = "English"/></td>
+	        </tr>
+			<tr>
+				<td>总分</td>
+		        <td><input type = "text" name = "" id = "" v-model.number = "sum"/></td>
+	        </tr>
+			<tr>
+				<td>平均分</td>
+		        <td><input type = "text" name = "" id = "" v-model.number = "average"/></td>
+	        </tr>
+			</table>
+		</div>
+        <script type = "text/javascript">
+			 new Vue({
+				el:'#app',
+				data:{
+					chinese:90,
+					English:80,
+					math:80,
+				},
+				computed:{
+				sum:function(){
+					return this.chinese+this.math+this.English;
+				},
+				average:function(){
+                    return Math.round(this.sum/3);
+				}
+			}
+		})
+		</script>
+    </body>
+</html>

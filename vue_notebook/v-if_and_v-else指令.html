@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title>v-if_and_v-else指令</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <p v-if="status===1">当status是1时显示此行</p>
+            <p v-else-if="status===2">当status是2时显示此行</p>  // ==:隐式等于如1='1'可以,但===:严格等于,  不仅要求数字相等,连类型都必须保持一致
+            <p v-else>否则显示此行</p>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el:"#app",
+                data:{
+                    status:1,
+                }
+            })
+        </script>
+    </body>
+</html> 

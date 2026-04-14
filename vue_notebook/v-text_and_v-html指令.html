@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta chearst="utf-8">
+        <title>v-text_and_v-html指令</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <p v-text="html"></p>    <!-- v-text将数据当作纯文本输出 -->
+            <p v-html="html"></p>    <!-- v-html将数据当作HTML标签解释后再输出-->
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el:"#app",
+                data:{         
+                    msg:"今天天气晴",
+                    html:"<input type='date'>"  
+                }
+            })
+        </script>
+    </body>
+</html>

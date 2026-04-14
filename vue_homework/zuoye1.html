@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title></title>
+        <script src = "vue.js"></script>
+    </head>
+    <body>
+        <div>{{name}}</div>
+        <div id = "app">{{name}}</div>
+        <script type = "text/javascript">
+        var name = new Vue({
+            el:"#app",
+            data:{
+                name:"alice"
+            }
+        })
+        </script>
+    </body>
+</html>

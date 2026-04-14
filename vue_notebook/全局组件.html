@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="vue.js" ></script>
+	</head>
+	<body>
+		<div id="app">
+			<h4>第一次使用</h4>
+			<my-component></my-component>
+		</div>
+		<div id="app1">
+			<h4>第二次使用</h4>
+			<my-component></my-component>
+		</div>
+		<script>
+			Vue.component('my-component',{
+				template:'<div><h1>这里是组件的内容</h1><h2>这里是组件的内容</h2></div>'
+			})
+			var app=new Vue({
+				el:'#app',
+			});
+			var app1=new Vue({
+				el:"#app1",
+			});
+		</script>
+	</body>
+</html>

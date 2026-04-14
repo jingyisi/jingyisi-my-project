@@ -1,0 +1,108 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>		
+		<script src="vue.js"></script>
+	<style type="text/css">
+		h2,h3{padding: 10px;margin: 0;	font-size: 14px;}
+		.left{
+			width:200px;
+			border: solid 1px #ccc;
+		}
+		h2{
+			background-color: blue;
+			color: #fff;
+			padding: 10px ;
+		}
+
+		.left ul{
+			padding-left: 10px;
+			margin: 5px;
+			list-style: none;
+		}
+		.left a{color: #666; text-decoration: none;}
+		hr{height: 1px; border: none; border-top: 1px dashed #CCCCCC;}
+		.icon{background-color:red;color:#fff;font-size:12px}
+		
+	</style>
+	</head>
+	<div id="app">
+	 <div class="left">
+       <h2>全部课程</h2> 
+       	
+       <!-- 第一层循环：遍历分类 -->
+       <div v-for="product in productList">
+       		<h3>{{product.title}}</h3>
+       		<ul>
+       			  <!-- 第二层循环：遍历分类下的课程 -->
+       			<li v-for="item in product.list">
+       				<a :href="item.url">{{item.name}}</a >
+       				 <!-- 热门标签：仅hot为true时显示 -->
+       				<span :class="{icon:item.hot}" v-if="item.hot">
+       					HOT</span>
+       			</li>
+       		</ul>
+       		  <!-- 分隔线：非最后一个分类显示 -->
+       		<hr v-if="!product.last"/>
+       </div>
+     </div>
+  </div>
+	</div>
+	
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: "#app",
+			data: {
+			productList: {
+		        pc: {
+		          title: '前端技术',
+		          list: [
+		            {
+		              name: 'html+css',
+		              url: 'http://html.com',
+					  hot:true
+		            },
+		            {
+		              name: 'JavaScript',
+		              url: 'http://JavaScript.com'
+		            },
+		            {
+		              name: 'Vue/React',
+		              url: 'http://Vue.com',
+					  hot:true
+		            },
+		            {
+		              name: 'node.js',
+		              url: 'http://node.com'
+		            }
+		          ]
+		        },
+		        app: {
+		          title: '后端技术',
+		          last:true,
+		          list: [
+		            {
+		              name: 'java',
+		              url: 'http://java.com'
+		            },
+		            {
+		              name: 'php',
+		              url: 'http://php.com',
+		            },
+		            {
+		              name: 'express',
+		              url: 'http://express.com'
+		            },
+		            {
+		              name: 'python',
+		              url: 'http://python.com'
+		            }
+		          ]
+		        }
+      		}
+
+			}
+		})
+	</script>
+</html>

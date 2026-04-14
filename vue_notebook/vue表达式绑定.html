@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8"/>
+        <title></title>
+        <script src = "vue.js"></script>
+    </head>
+    <body>
+        <div id = "app">
+            {{number/100}}
+            {{completed?'完成':'未完成'}}
+            {{text.split('.').reverse().join('.')}}
+            <!--
+            split('.'):以逗号的形式分割为数组，如[123].[abc]
+            reverse():反转数组，如[123].[abc]
+            join('.'):以逗号的形式拼接
+            -->
+        </div>
+        <script src = "vue.js"></script>
+        <script type = "text/javascript"></script>
+        <script>
+            var app = new Vue({
+                el:'#app',
+                data:{
+                    number:200,
+                    completed:false,
+                    text:'abc.123'
+                }
+            })
+        </script>
+    </body>
+</html>

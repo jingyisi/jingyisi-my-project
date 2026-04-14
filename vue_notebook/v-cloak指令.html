@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title>v-cloak指令</title>
+        <!--
+        它解决了什么问题？
+        当页面加载时，浏览器会先解析和显示 HTML 内容。如果此时 Vue 实例还没有完成初始化和数据渲染，用户可能会短暂地看到未经编译的模板语法
+        例如 {{ message }}。这个现象通常被称为“闪烁”或 FOUC（Flash of Unstyled Content），虽然时间很短，但会影响用户体验，显得不够专业。
+        v-cloak 的作用就是隐藏这些未编译的模板，直到 Vue 实例准备完毕。 
+        -->
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="app" v-cloack>{{message}}</div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el:"#app",
+                data:{
+                    message:'这是一段纯文本'
+                }
+            });
+        </script>
+    </body>
+</html>

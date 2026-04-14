@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title>get_and_set</title>
+        <script src = "vue.js"></script>
+    </head>
+    <body>
+        <div id = "app">
+            <p>first_name:<input type = "text" name = "" value = "" v-model="first_name"></p><br/>
+            <p>last_name:<input type = "text" name = "" value = "" v-model="last_name"></p><br/>
+            <p>full_name:<input type = "text" name = "" value = "" v-model="full_name"></p><br/>
+        </div>
+        <script type = "text/javascript">
+            var name = new Vue({
+                el:'#app',
+                data:{
+                    first_name:'xu',
+                    last_name:"jingtao",
+                },
+                computed:{
+                    full_name:{
+                    //getter
+                    get:function()
+                    {
+                    return this.first_name+this.last_name
+                    },
+                    //setter
+                    set:function(new_value)
+                        {
+                        var names = new_value.split('')
+                        this.first_name = names[0]
+                        this.last_name = names[names.length-1]
+                        }
+                }
+            }
+        })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>升序和降序</title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		 	<div id="app">
+      <h3>使用非变异方法</h3>
+      <p>非变异方法，不改变原来的数组，但是会返回一个数组</p >
+<button v-on:click="addfilter">filter</button>
+<button v-on:click="addcontant">contant</button>
+<button v-on:click="addslice">slice</button>
+<button v-on:click="addmap">map</button>
+<button v-on:click="addinclu">include</button>
+<button v-on:click="addforeach">foreach</button>
+</div>
+
+<script>
+  var app = new Vue({
+    el: '#app',
+    data: {
+      num: [1, 3, 2, 8, 5, 9, 0]
+    },
+    methods: {
+      addfilter() {
+        console.log(this.num)
+        var gh = this.num.filter(function(number) {
+          return number % 2 === 0
+        })
+        console.log(JSON.stringify(gh))
+      },
+      addcontant() {
+        console.log(this.num)
+        var dd = this.num.concat(2, 4, 5)
+        console.log(dd)
+        var dd = this.num.concat([2, 4, 5], [2, 3, 4])
+        console.log(dd)
+      },
+      addslice() {
+        var dd = this.num.slice() //返回所有元素
+        console.log(dd)
+        var dd = this.num.slice(1, 2) //返回index为1的值
+        console.log(dd)
+        var dd = this.num.slice(-3, 1) //空值
+        console.log(dd)
+        var dd = this.num.slice(-3) //返回倒数3个元素
+        console.log(dd)
+      },
+      addmap() {
+        console.log(this.num)
+        let dd = this.num.map(function(item, index) {
+          return item * 3
+        })
+        console.log(dd)
+      },
+      addinclu() {
+        console.log(this.num)
+        let d1 = this.num.includes(5)
+        console.log(d1)
+        let d2 = this.num.includes(20)
+        console.log(d2)
+      },
+      addforeach() {
+        console.log(this.num)
+        this.num.forEach(function(item, index) {
+          console.log(item)
+        })
+      }
+    }
+  });
+		</script>
+	</body>
+</html>

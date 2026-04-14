@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        [v-cloak]{
+            display: none;
+        }
+        fieldset{
+            width:600px;
+            border: 1px solid cornflowerblue;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+        fieldset input{
+            width:200px;
+            height: 30px;
+            margin: 10px 0;
+        }
+        fieldset button{
+            width:100px;
+            height: 30px;
+            margin-top: 10px;
+        }
+        table{
+            width:620px;
+            border: 1px solid red;
+            text-align: center;
+        }
+        thead{
+            background-color:cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+<div id="app" class="container" v-cloak>
+    <!--第一部分-->
+    <h3>学生录入系统</h3>
+    <div>
+        <label for="username">用户名:</label>
+        <input type="text" id="username" class="form-control" placeholder="输入用户名" v-model="newStudent.name">
+    </div>
+    <div>
+        <label for="">年龄:</label>
+        <input type="text" name="" id="" class="form-control" value="" placeholder="请输入年龄" v-model="newStudent.age"/>
+    </div>
+    <div>
+        <span>性别: </span>
+        <select name="" id="" v-model="newStudent.sex" class="sel">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+    </div>
+
+    <button @click="creatNewstudent()" class="btn btn-danger">创建新用户</button>
+    <!--第二部分-->
+    <hr />
+    <h3 class="h3 text-info">用户信息表</h3>
+    <button @click="avg()">显示所有学生的平均年龄</button>
+    <button @click="sortedStudents()">按年龄升序显示学生信息</button>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>姓名</td>
+                <td>年龄</td>
+                <td>性别</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(student,index) in students">
+                <td>{{student.name}}</td>
+                <td>{{student.age}}</td>
+                <td>{{student.sex}}</td>
+                <td><button @click="deleteStudent(index)" class="btn btn-primary">删除</button></td>
+            </tr>
+        </tbody>
+    </table>
+    按姓名搜索: <input type="text" v-model="search">
+    <button @click="filteredStudents()" class="btn btn-primary">搜索</button>
+</div>
+
+<script src="Vue.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            students:[
+                {name:"张三",age:20,sex:"男"},
+                {name:"李四",age:22,sex:"男"},
+                {name:"王五",age:21,sex:"女"},
+                {name:"赵四",age:20,sex:"女"},
+            ],
+            newStudent:{name:"",age:0,sex:"男"},
+            search:""
+        },
+        methods:{
+            creatNewstudent(){
+                //alert(0);
+                //姓名不能为空
+                if(this.newStudent.name === ""){
+                    alert("姓名不能为空");
+                    return;
+                }
+                //年龄不能小于 10 岁
+                if(this.newStudent.age < 10){
+                    alert("年龄不能小于 10");
+                    return;
+                }
+                //向数组中添加一个新记录
+                this.students.unshift(this.newStudent);
+                //清空数据
+                this.newStudent={name:"",age:0,sex:"男"}
+            },
+            //删除一条学生记录
+            deleteStudent(index){
+                this.students.splice(index,1);
+            },
+            filteredStudents(){
+                search=this.search;
+                //alert(search);
+                vm.students=this.students.filter(function(item){
+                    return item.name.match(search);
+                });
+            },
+            sortedStudents(){
+                this.students.sort(function(a,b){
+                    return a.age>b.age;
+                })
+            },
+            avg(){
+                alert('平均年龄为: '+this.sum/this.students.length);
+            }
+        },
+        computed:{
+            sum(){
+                var sum = 0;
+                for(var i = 0; i < this.students.length; i++){
+                    sum += this.students[i].age;
+                }
+                return sum;
+            }
+        }
+    })
+</script>
+</body>
+</html>

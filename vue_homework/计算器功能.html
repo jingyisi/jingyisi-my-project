@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue生命周期计算器</title>
+    <!-- 引入Vue -->
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>Vue 生命周期计算器</h2>
+        <input type="number" v-model="num1" placeholder="数字1">
+        
+        <select v-model="oper">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">×</option>
+            <option value="/">÷</option>
+        </select>
+
+        <input type="number" v-model="num2" placeholder="数字2">
+        <button @click="calc">=</button>
+
+        <h3>结果：{{ result }}</h3>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                num1: '',
+                num2: '',
+                oper: '+',
+                result: ''
+            },
+
+            // 方法
+            methods: {
+                calc() {
+                    let n1 = Number(this.num1)
+                    let n2 = Number(this.num2)
+
+                    switch (this.oper) {
+                        case '+': this.result = n1 + n2; break
+                        case '-': this.result = n1 - n2; break
+                        case '*': this.result = n1 * n2; break
+                        case '/': 
+                            if(n2 === 0) {
+                                alert("除数不能为0")
+                                this.result = ''
+                            } else {
+                                this.result = n1 / n2
+                            }
+                            break
+                    }
+                }
+            },
+
+            // ==================== 生命周期 ====================
+            // 实例创建后
+            created() {
+                console.log("created：计算器实例创建完成")
+                this.result = "请输入数字开始计算"
+            },
+
+            // 页面挂载完成
+            mounted() {
+                console.log("mounted：计算器界面已渲染到页面")
+                alert("欢迎使用 Vue 生命周期计算器！")
+            },
+
+            // 数据更新时
+            updated() {
+                console.log("updated：数据已更新，结果：", this.result)
+            }
+        })
+    </script>
+</body>
+</html>

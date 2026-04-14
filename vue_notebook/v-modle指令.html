@@ -1,0 +1,45 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>v-model指令</title>
+        <script src="vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <p>选择的选项是: {{ picked }}</p>
+            <!-- 单选框 -->
+            <input type="radio" value="js" name="language" v-model="picked">js
+            <input type="radio" value="html" name="language" v-model="picked">html
+            <input type="radio" value="css" name="language" v-model="picked">css
+            
+            <p>你的爱好是: {{ pickedbox }}</p>
+            <!-- 复选框：type 必须是 checkbox，且 data 中必须是数组 -->
+            <input type="checkbox" value="旅游" v-model="pickedbox">旅游
+            <input type="checkbox" value="看电影" v-model="pickedbox">看电影
+            <input type="checkbox" value="游泳" v-model="pickedbox">游泳
+            <input type="checkbox" value="跑步" v-model="pickedbox">跑步
+            
+            <p>你的年龄是: {{ selected }}</p>
+            <select v-model="selected">
+                <option value="18岁">18岁</option>
+                <option value="18岁-30岁">18岁-30岁</option>
+                <option value="30岁-40岁">30岁-40岁</option>
+                <option value="40岁以上">40岁以上</option>
+            </select>
+        </div>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: "#app",
+                data: {
+                    msg: "",
+                    // 单选框默认选中 js (对应 value="js")
+                    picked: "js",
+                    // 复选框必须初始化为数组，不能是字符串 "[]"
+                    pickedbox: [],
+                    selected: "18岁"
+                }
+            });
+        </script>
+    </body>
+</html>

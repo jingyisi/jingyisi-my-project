@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title></title>
+        <script src = "vue.js"></script>
+    </head>
+    <body>
+        <div id = "app">
+            <h3>顾客,你好</h3>
+            <p>
+                你购买的手机品牌是{{company}}<br/>单价是{{price}}元<br/>    
+                数量是{{count}}部<br>总价是{{total()}}元 
+                <!--
+                total():自定义函数,计算总价值
+                company:公司
+                price：价格
+                count：数量
+                -->
+            </p>
+        </div>
+        <script type = "text/javascript">
+            new Vue({
+            el:"#app",
+            data:{
+                company:'华为',
+                price:2000,
+                count:10,    
+            },
+            methods:{   
+                total:function(){
+                console.log('conted') //打印作用,调用了多少次total,控制台就打印多少个counted
+                return this.price*this.count;
+                },
+            } 
+        })
+        </script>
+<!--
+1.Computed（计算属性）—— 缓存驱动
+计算属性是基于它们的依赖进行缓存的。只有当它的依赖项（比如  data  中的数据）发生改变时，才会重新求值。
+2 Methods（方法）—— 每次都执行
+方法在每次组件重新渲染时都会被调用，即使数据没有变化。
+-->
+    </body>  
+</html>
+ 

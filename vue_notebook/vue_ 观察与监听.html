@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "utf-8"/>
+    <title>vue_watch</title>
+    <script src = "vue.js"></script>
+</head>
+<body>
+    <div id = "app">
+    <input type = "text" name = "" value = "" v-model = "age"/><br/>
+    {{name}},你的年龄是{{sum}}岁,{{message}}
+</div>
+    <script src = "vue.js"></script>
+    <script type = "text/javascript">
+        //创建vue实例
+        var app = new Vue({
+            el:"#app",
+            data:{
+                name:'alice',
+                age:30,
+                message:'你好，该找个工作了'
+            },
+            computed:{
+                sum(){
+                    return Number(this.age) + 20
+                }
+            },
+            watch:{      //利用watch监听
+                age(){
+                    alert('age变化了！')
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
