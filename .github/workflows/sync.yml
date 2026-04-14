@@ -12,27 +12,37 @@ jobs:
 
     steps:
       # 第一步：拉取代码
+      # 注意：这里不要配置 ssh-key，使用默认的 HTTPS 方式拉取
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          # 引用你在 Secrets 里设置的私钥
-          ssh-key: ${{ secrets.GITEE_PRIVATE_KEY }}
 
-      # 第二步：配置提交信息
+      # 第二步：配置 Git 提交信息
       - name: Configure Git
         run: |
-          git config --global user.name "jingyisi"
-          git config --global user.email "18296837309@163.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 第三步：推送到 Gitee
+      # 第三步：添加 Gitee 的 SSH 主机指纹到 known_hosts
+      - name: Add Gitee SSH Host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H gitee.com >> ~/.ssh/known_hosts
+
+      # 第四步：设置 SSH 私钥，用于推送到 Gitee
+      - name: Setup SSH Key for Gitee
+        run: |
+          mkdir -p ~/.ssh
+          # 将你仓库 Secrets 里的 GITEE_PRIVATE_KEY 写入到 id_rsa 文件
+          echo "${{ secrets.GITEE_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          # 设置正确的文件权限
+          chmod 600 ~/.ssh/id_rsa
+
+      # 第五步：推送到 Gitee
       - name: Push to Gitee
         run: |
-          # 1. 【关键修复】先删除可能存在的旧远程地址（忽略报错）
-          git remote remove gitee || true
-
-          # 2. 添加新的 SSH 地址
-          git remote add gitee git@gitee.com:jingyisi/jingyisi-my-project.git
-
-          # 3. 推送代码
-          git push gitee main
+          # 将当前仓库的 origin 地址从 GitHub 的 HTTPS 地址，改为 Gitee 的 SSH 地址
+          git remote set-url origin git@gitee.com:jingyisi/jingyisi-my-project.git
+          # 强制推送到 Gitee 的 main 分支
+          git push --force origin main
