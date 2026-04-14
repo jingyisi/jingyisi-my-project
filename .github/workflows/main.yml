@@ -2,7 +2,7 @@ name: Sync from Gitee
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # 每天早上6点自动同步
+    - cron: '0 6 * * *' # 每天早上6点自动同步
   workflow_dispatch:     # 也可以手动触发
 
 jobs:
@@ -18,8 +18,9 @@ jobs:
       - name: Sync from Gitee
         uses: wearerequired/git-mirror-action@master
         env:
+          # 密钥在这里定义即可，Action 会自动读取
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_TOKEN }}
         with:
-                source-repo: 'git@gitee.com:jingyisi/jingyisi-my-project.git'  
-                destination-repo: 'git@github.com:jingyisi/jingyisi_gitee_and_github.git'
-                ssh-private-key: ${{ secrets.GITEE_TOKEN }}
+          # 只需要配置源仓库和目标仓库地址
+          source-repo: 'git@gitee.com:jingyisi/jingyisi-my-project.git'
+          destination-repo: 'git@github.com:jingyisi/jingyisi_gitee_and_github.git'
