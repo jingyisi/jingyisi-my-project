@@ -1,0 +1,38 @@
+name: Sync to Gitee
+
+# 触发条件：当代码推送到 main 分支时自动运行
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 第一步：拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          # 引用你在 Secrets 里设置的私钥
+          ssh-key: ${{ secrets.GITEE_PRIVATE_KEY }}
+
+      # 第二步：配置提交信息
+      - name: Configure Git
+        run: |
+          git config --global user.name "jingyisi"
+          git config --global user.email "18296837309@163.com"
+
+      # 第三步：推送到 Gitee
+      - name: Push to Gitee
+        run: |
+          # 1. 【关键修复】先删除可能存在的旧远程地址（忽略报错）
+          git remote remove gitee || true
+
+          # 2. 添加新的 SSH 地址
+          git remote add gitee git@gitee.com:jingyisi/jingyisi-my-project.git
+
+          # 3. 推送代码
+          git push gitee main
